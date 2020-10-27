@@ -26,7 +26,27 @@ from .utils import (URLHelper, RawHelper, extend_config,
                     get_available_languages, extract_meta_refresh)
 from .videos.extractors import VideoExtractor
 
-log = logging.getLogger(__name__)
+# logger = logging.getLogger(__name__)
+logger = logging.getLogger()
+
+# log 리포트 수준 변경
+# logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.WARNING)
+
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+# 콘솔로 출력
+stream_handler = logging.StreamHandler()
+stream_handler.setFormatter(formatter)
+logger.addHandler(stream_handler)
+
+# 파일로 출력
+log_folder = '../log/'
+log_name = '20201025.log'
+file_handler = logging.FileHandler(log_folder + log_name)
+file_handler.setFormatter(formatter)
+logger.addHandler(file_handler)
+
 
 
 class ArticleDownloadState(object):
